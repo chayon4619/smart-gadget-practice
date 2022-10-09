@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
 import { CartContext, ProductContext } from './Main';
 import Product from './Product';
 
@@ -7,9 +8,23 @@ const Shop = () => {
     const [cart, setCart] = useContext(CartContext)
 
     const handelAddToCart = product => {
-        const newCart = [...cart, product]
+
+        let newCart = []
+
+        const exists = cart.find(existingProduct => existingProduct.id === product.id);
+        if (!exists) {
+            product.quantity = 1;
+            newCart = [...cart, product];
+        }
+        else {
+            const rest = cart.filter(restProduct => restProduct.id !== product.id);
+            product.quantity = exists.quantity + 1;
+            newCart = [...rest, exists]
+        }
+        // const newCart = [...cart, product]
         setCart(newCart);
-        console.log(newCart);
+        toast.success('product added', { autoClose: 500 })
+
     }
 
     return (

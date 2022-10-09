@@ -1,11 +1,34 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import CartItem from './CartItem';
 import { CartContext } from './Main';
 
 const Cart = () => {
 
     const [cart, setCart] = useContext(CartContext)
+
+    let total = 0;
+    for (const product of cart) {
+        total = product.price + total + product.quantity;
+    }
+
+    const orderHandel = () => {
+        if (cart.length) {
+            setCart([]);
+            return toast.success('Product Placed!', { autoClose: 500 });
+        }
+        else {
+            toast.error('Cart Is Empty', { autoClose: 500 })
+        }
+    }
+
+
+    const removeOrder = id => {
+        const remaining = cart.filter(removeProduct => removeProduct.id !== id);
+        setCart(remaining);
+        toast.warning('Product Removed!', { autoClose: 500 })
+    }
 
     return (
         <div>
@@ -19,12 +42,13 @@ const Cart = () => {
                             <CartItem
                                 key={product.id}
                                 product={product}
+                                removeOrder={removeOrder}
                             ></CartItem>
                         ))}
                     </ul>
                     <div className='space-y-1 text-right'>
                         <p>
-                            Total amount: <span className='font-semibold'>0$</span>
+                            Total amount: <span className='font-semibold'>{total}$</span>
                         </p>
                         <p className='text-sm text-gray-400'>
                             Not including taxes and shipping costs
@@ -40,7 +64,7 @@ const Cart = () => {
                             </button>
                         </Link>
                         <button
-                            //   onClick={orderHandler}
+                            onClick={orderHandel}
                             type='button'
                             className='px-6 py-2 border font-semibold rounded-full hover:bg-cyan-400 bg-cyan-200 text-gray-800'
                         >

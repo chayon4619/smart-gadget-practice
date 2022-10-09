@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import heroIMG from '../assests/hero.jpg'
 
 const Home = () => {
@@ -10,8 +11,12 @@ const Home = () => {
                         <h1 className="text-5xl font-bold leading-none sm:text-6xl xl:max-w-3xl text-gray-900">Welcome To Smart Gaget</h1>
                         <p className="mt-6 mb-8 text-lg sm:mb-12 xl:max-w-3xl text-gray-900">Best E-commerce platform for buying high quality Smart Home Appliances at extremely affordable Price!</p>
                         <div className="flex flex-wrap justify-center">
-                            <button type="button" className="px-8 py-3 m-2 text-lg font-semibold rounded-full  text-gray-900 hover:bg-cyan-400 bg-cyan-200">Get started</button>
-                            <button type="button" className="px-8 py-3 m-2 text-lg border rounded-full border-cyan-400 text-gray-900">Learn more</button>
+                            <Link to='/shop'>
+                                <button type="button" className="px-8 py-3 m-2 text-lg font-semibold rounded-full  text-gray-900 hover:bg-cyan-400 bg-cyan-200">Shop Now</button>
+                            </Link>
+                            <Link to='/about'>
+                                <button type="button" className="px-8 py-3 m-2 text-lg border rounded-full border-cyan-400 text-gray-900">Learn more</button>
+                            </Link>
                         </div>
                     </div>
                 </div>

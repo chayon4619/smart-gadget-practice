@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CartItem = ({ product }) => {
+const CartItem = ({ product, removeOrder }) => {
     const { name, picture, price, quantity, id, } = product
     return (
         <li className='flex flex-col py-6 sm:flex-row sm:justify-between'>
@@ -16,18 +16,18 @@ const CartItem = ({ product }) => {
                             <h3 className='text-lg font-semibold leading-snug sm:pr-8'>
                                 {name}
                             </h3>
-                            <p className='text-sm text-gray-400'>Quantity: 1</p>
+                            <p className='text-sm text-gray-400'>Quantity: {quantity}</p>
                         </div>
                         <div className='text-right'>
                             <p className='text-lg font-semibold'>{price}$</p>
                             <p className='text-sm text-gray-600'>
-                                Total: {price * 1}$
+                                Total: {price * quantity}$
                             </p>
                         </div>
                     </div>
                     <div className='flex text-sm divide-x'>
                         <button
-                            //   onClick={() => handleRemoveItem(id)}
+                            onClick={() => removeOrder(id)}
                             type='button'
                             className='flex items-center px-2 py-1 pl-0 space-x-1'
                         >
